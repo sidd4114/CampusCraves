@@ -1,0 +1,224 @@
+.who-are-we {
+  padding: 50px 10%;
+  background-color: #f9f9f9;  /* Light grey background */
+  text-align: center;
+  color: #333;
+}
+
+.who-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInUp 1s forwards;
+}
+
+.who-header p {
+  font-size: 1.2rem;
+  color: #555;
+  max-width: 800px;
+  margin: 0 auto 30px;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInUp 1s forwards 0.5s;
+}
+
+.core-values h3, .team-section h3 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInUp 1s forwards 1s;
+}
+
+/* Core Values Section */
+.value-cards {
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.value-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 30%;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInUp 1s forwards;
+  animation-delay: 1.5s;
+}
+
+.value-card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 15px;
+}
+
+.value-card h4 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.value-card p {
+  font-size: 1rem;
+  color: #777;
+}
+
+.value-card:nth-child(2) {
+  animation-delay: 2s;
+}
+
+.value-card:nth-child(3) {
+  animation-delay: 2.5s;
+}
+
+/* Team Section */
+.team-members {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.team-member {
+  text-align: center;
+  width: 22%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInUp 1s forwards;
+  /*animation-delay: 3s;*/
+}
+
+.team-member img {
+  width: 100%;
+  max-width: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.team-member h4 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.team-member p {
+  font-size: 1rem;
+  color: #555;
+}
+/*
+.team-member:nth-child(2) {
+  animation-delay: 3.5s;
+}
+
+.team-member:nth-child(3) {
+  animation-delay: 4s;
+}
+
+.team-member:nth-child(4) {
+  animation-delay: 4.5s;
+}
+*/
+/* Hover effect for team members */
+.team-member:hover {
+ 
+  transition: all 0.3s ease;
+  background-color: #f0f0f0;
+  
+}
+
+/* Goal Section */
+.goal-section {
+  margin-top: 50px;
+  background-color: #333;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.goal-description {
+  font-size: 1.2rem;
+  color: #fff;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(50px);
+  /*animation: fadeInUp 1s forwards 5s;*/
+}
+
+/* Animation Definitions */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 768px) {
+  .who-are-we {
+    padding: 30px 5%;
+  }
+
+  .value-cards {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .value-card {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .team-members {
+    flex-direction: column;
+  }
+
+  .team-member {
+    width: 80%;
+    margin: 10px auto;
+  }
+
+  .goal-description {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .who-header h2 {
+    font-size: 2rem;
+  }
+
+  .who-header p {
+    font-size: 1rem;
+  }
+
+  .value-card h4 {
+    font-size: 1.2rem;
+  }
+
+  .team-member h4 {
+    font-size: 1.1rem;
+  }
+
+  .team-member p {
+    font-size: 0.9rem;
+  }
+  
+}
+/*added afterwards*/
+

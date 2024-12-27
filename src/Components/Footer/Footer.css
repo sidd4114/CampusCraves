@@ -1,0 +1,10 @@
+/* Base styles for links to remove underline */
+.text-white {
+    text-decoration: none;
+    
+  }
+
+.hovering{
+    cursor: pointer;
+}
+  

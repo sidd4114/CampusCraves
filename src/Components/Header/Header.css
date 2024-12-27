@@ -1,0 +1,61 @@
+.header{
+    height:34vw;
+    margin: 30px auto;
+    
+    background: url("/bg4.jpg") no-repeat center;
+    background-size: contain;
+    position: relative;
+    margin-top: 50px;
+}
+
+.header-contents{
+    position: absolute; /* Keeps it positioned relative to .header */
+    display: flex; /* Ensures flexbox layout for child elements */
+    flex-direction: column;
+    width:50%;
+    align-items: start;
+    
+    gap:1.5vw;
+    bottom:15%;
+    left:5vw;
+    animation: fadein 3s;
+}
+
+.header-contents h2{
+    font-weight: 500;
+    color:white;
+    font-size: max(4.3vw,22px);
+    transition: transform ease-in 0.3s;
+}
+
+.header-contents h2:hover{
+    transform:translateY(-10px);
+    cursor:pointer;
+}
+
+.header-contents p{
+    color:white;
+    font-size: 1vw;
+    transition: transform ease-in 0.3s;
+}
+.header-contents p:hover{
+    transform:translateY(-10px);
+    cursor:pointer;
+}
+
+.header-contents button{
+    border:none;
+    color: #747474;
+    font-weight: 500;
+    padding:1vw 2.3vw;
+    background-color: white;
+    font-size: max(1vw,13px);
+    border-radius: 50px;
+}
+
+.header-contents button:hover{
+    opacity: 0.7;
+    transition: ease 0.3s;
+}
+
+
