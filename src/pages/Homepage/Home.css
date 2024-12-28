@@ -1,16 +1,17 @@
 .Homeconta{
-  background-color: white;
+  /*background-color: white; can be ignored*/
   height: 100vh; /* Set the height to fill the screen */
   margin: 0; /* Remove default margins */
-  padding: 18px 70px; /* Remove default padding */
-  
-  font: Outfit; /*imported from google*/
+ /* padding: 18px 70px;*/ /* Remove default padding */
   
 }
-html, body {
-  margin: 0; /* Remove default margins */
-  padding: 0; /* Remove default padding */
-  height: 100%; /* Ensure the body fills the viewport height */
-  background-color: white; /* Default background color */
+html {
+  /*
+  margin: 0; 
+  padding: 0; 
+  height: 100%; 
+  */
+  background-color: white; /* Default background color, enitire sc */
+  
 }
   

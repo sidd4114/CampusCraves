@@ -10,11 +10,9 @@ import Footer from "../../Components/Footer/Footer";
 function Home() {
   return (
     <div className="Homeconta">
-      <Navbar/>
       <Header/>
       <TodaysSpecials/>
       <Aboutus/>
-
       <Footer/>
 
       
