@@ -42,10 +42,13 @@ const Navbar = () => {
                 </li>
             </ul>
             <div className="navbar-right">
-                <img src='../public/icons/search.png' className='icon' alt="search icon" />
+                <img src='./icons/search.png' className='icon' alt="search icon" />
                 <div className="navbar-basket-icon"></div>
-                <img src="../public/icons/shopping-cart.png" className='icon' alt="cart icon" />
+                <img src="./icons/shopping-cart.png" className='icon' alt="cart icon" />
                 <div className='dot'></div>
+                <button className="Logout">Log-Out
+
+                </button>
             </div>
         </div>
     );

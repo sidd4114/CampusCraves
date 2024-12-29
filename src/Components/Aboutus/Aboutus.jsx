@@ -148,7 +148,7 @@ const Aboutus = () => {
             animate={{ opacity: inView ? 1 : 0, scale: inView ? 1 : 0.8 }} // Zoom-in effect for team member
             transition={{ duration: 1.5, delay: 0.3 }} // Slow down the zoom-in effect
           >
-            <img src="siddhen.jpg" alt="Siddhen" />
+            <img src="/people/siddhen.jpg" alt="Siddhen" />
             <h4>Siddhen Pise</h4>
             <p>Founder & CEO</p>
           </motion.div>

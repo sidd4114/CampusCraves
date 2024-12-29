@@ -43,14 +43,14 @@ const TodaysSpecials = () => {
       <div className="d-flex flex-wrap justify-content-around" style={{ gap: '30px' }}>
         <Card
           className="card"
-          image="gulabjamun.jpg"
+          image="../specials_img/gulabjamun.jpg"
           title="Gulab Jamun"
           text="This is the first card's description."
           link="https://example.com/card1"
         />
         <Card
           className="card"
-          image="dhokla.jpg"
+          image="../specials_img/dhokla.jpg"
           title="Dhokla"
           text="This is the second card's description."
           link="https://example.com/card2"
@@ -64,7 +64,7 @@ const TodaysSpecials = () => {
         />
         <Card
           className="card"
-          image="../bg3.jpg"
+          image="../specials_img/pizza_bg.jpeg"
           title="Card 4"
           text="This is the 4th card's description."
           link="https://example.com/card4"

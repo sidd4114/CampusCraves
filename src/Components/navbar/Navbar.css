@@ -53,6 +53,25 @@
     height: 30px;
     cursor: pointer; /* Show pointer on hover */
 }
+
+.Logout{
+    border: 2px solid #747474;
+    color: #747474;
+    font-weight: 500;
+    padding:0.5vw 1.5vw;
+    background-color: white;
+    font-size: max(1vw,13px);
+    border-radius: 50px;
+
+    transition: all 0.3s ease-in; /* Smooth transition for hover effects */
+}
+
+.Logout:hover {
+    background-color: #747474; /* Change background color */
+    color: white; /* Change text color */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+    transition: ease-in;
+}
 /*
 
 .navbar-basket-icon {
