@@ -1,0 +1,61 @@
+.explore-menu{
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+  align-items: center;
+}
+
+.explore-menu h1{
+  font-weight: 500;
+  font-size: 4rem;
+  
+}
+.explore-menu-text{
+    width: 80%;
+    color: #808080;
+}
+
+.explore-menu-list{
+  display: flex;
+  justify-content: space-between;
+  gap:50px;
+  align-items: center;
+  text-align: center;
+  margin:20px 0px;
+  overflow-x: auto; 
+  max-width: 100%; /* Ensure it doesn’t exceed viewport width */
+  padding: 20px 10px;
+  
+}
+
+.explore-menu-list::-webkit-scrollbar {
+  height: 8px; /* Horizontal scrollbar height */
+}
+.explore-menu-list::-webkit-scrollbar-thumb {
+  background: #ccc; /* Scrollbar thumb color */
+  border-radius: 4px;
+}
+.explore-menu-list::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Scrollbar track color */
+}
+
+
+
+.explore-menu-list-item img {
+    width: 200px;          /* Set the desired width of the image */
+    height: 200px;         /* Set the desired height of the image */
+    border-radius: 50%;    /* This makes the image circular */
+    object-fit: cover;     /* Ensures the image covers the circle area without stretching */
+    cursor: pointer;
+    transition: 1s;
+  }
+
+  .explore-menu-list-item p{
+    margin-top: 10px;
+    color: #747474;
+    font-weight: 450;
+    cursor: pointer;
+  }
+
+
+  
