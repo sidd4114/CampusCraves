@@ -72,19 +72,4 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow effect */
     transition: ease-in;
 }
-/*
 
-.navbar-basket-icon {
-    position: relative;
-}
-
-.navbar-basket-icon .dot {
-    position: absolute;
-    min-width: 10px;
-    min-height: 10px;
-    background-color: tomato;
-    border-radius: 50%;
-    top: -8px;
-    right: -8px;
-}
-    */

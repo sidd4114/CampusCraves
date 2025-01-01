@@ -9,6 +9,14 @@ import menu_5 from "/menu_img/beverages.jpg"
 import food_1 from "/menu_img/vadapav.jpg"
 import food_2 from "/menu_img/kandabhaji.jpg"
 import food_3 from "/menu_img/pavbhaji.jpg"
+import food_4 from "/menu_img/samosapav.jpg"
+import food_5 from "/menu_img/idli.jpg"
+import food_6 from "/menu_img/meduvada.jpg"
+import food_7 from "/menu_img/masaladosa.jpg"
+
+
+
+
 
 export const menu_list=[
     {
@@ -67,6 +75,46 @@ export const food_list=[
         price:50,
         description:"very spicy",
         category:"Snacks",
+    },
+    {
+        _id:"4",
+        name:"Samosa Pav",
+        image:food_4,
+        price:20,
+        description:"...",
+        category:"Snacks",
+    },
+    {
+        _id:"4",
+        name:"Samosa Pav",
+        image:food_4,
+        price:20,
+        description:"...",
+        category:"Snacks",
+    },
+    {
+        _id:"5",
+        name:"Idli Sambar",
+        image:food_5,
+        price:35,
+        description:"...",
+        category:"South-Indian",
+    },
+    {
+        _id:"6",
+        name:"Medu Vada",
+        image:food_6,
+        price:35,
+        description:"...",
+        category:"South-Indian",
+    },
+    {
+        _id:"7",
+        name:"Masala dosa",
+        image:food_7,
+        price:35,
+        description:"...",
+        category:"South-Indian",
     },
    
 ]

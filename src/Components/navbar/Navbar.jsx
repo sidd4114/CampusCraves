@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom'; // Import useLocation
 import './Navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ onLogout }) => {
     const [menu, setMenu] = useState("home");
     const navigate = useNavigate(); // Initialize navigate function
+    const location = useLocation(); // Get the current location
+
+    // Update the menu state when the location changes (on page refresh or route change)
+    useEffect(() => {
+        const currentPage = location.pathname.split("/")[1]; // Get the current route path after the '/'
+        setMenu(currentPage); // Set the active menu item
+    }, [location]); // This effect runs whenever the location changes
 
     // Function to handle menu click and navigate
     const handleMenuClick = (page) => {
@@ -46,9 +53,7 @@ const Navbar = () => {
                 <div className="navbar-basket-icon"></div>
                 <img src="./icons/shopping-cart.png" className='icon' alt="cart icon" />
                 <div className='dot'></div>
-                <button className="Logout">Log-Out
-
-                </button>
+                <button className="Logout" onClick={onLogout}>Log-Out</button>
             </div>
         </div>
     );
