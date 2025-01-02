@@ -18,6 +18,9 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      if (currentUser) {
+        console.log("User logged in:", currentUser); // Log user details
+    } 
       setUser(currentUser); // Set the user state to the current logged-in user (or null if not logged in)
       setLoading(false); // Once the state is set, stop showing loading
     });
@@ -44,27 +47,33 @@ function App() {
   return (
     <>
       {/* Show Navbar on all pages except /login and /signup */}
-      {!isAuthPage && <Navbar onLogout={handleLogout} />}
+      {!isAuthPage && <Navbar user={user} onLogout={handleLogout} />}
 
       <Routes>
         {/* Redirect root to /login */}
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/" element={<Navigate to="/home" />} />
 
         {/* Public Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
+         {/* Routes */}
+         <Route path="/home" element={<Home />} />
+        <Route path="/menu" element={<Menu />} />
+
+
         {/* Private Routes */}
-        <Route
+        {/* <Route
           path="/home"
           element={user ? <Home /> : <Navigate to="/login" />} // Redirect to /login if no user is logged in
         />
         <Route
           path="/menu"
           element={user ? <Menu /> : <Navigate to="/login" />} // Same logic for menu
-        /> {/*<Route path="/preorder" element={user ? <Preorder /> : <Navigate to="/login" />} />
-          <Route path="/listitem2" element={user ? <ListItem2 /> : <Navigate to="/login" />} />
-          */}
+        /> 
+        <Route path="/preorder" element={user ? <Preorder /> : <Navigate to="/login" />} />
+        <Route path="/listitem2" element={user ? <ListItem2 /> : <Navigate to="/login" />} /> */}
+          
       </Routes>
     </>
   );

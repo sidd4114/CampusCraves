@@ -24,7 +24,7 @@ function SignInwithGoogle() {
           photo: user.photoURL || "",
         });
 
-        toast.success("User logged in Successfully", {
+        toast.success(`Welcome, ${user.displayName || "User"}! You have logged in successfully.`, {
           position: "top-center",
         });
 

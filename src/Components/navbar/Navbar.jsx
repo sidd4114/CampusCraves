@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'; // Import useLocation
 import './Navbar.css';
+import { toast } from 'react-toastify'; // Import toast
 
-const Navbar = ({ onLogout }) => {
+const Navbar = ({ onLogout, user }) => {
     const [menu, setMenu] = useState("home");
     const navigate = useNavigate(); // Initialize navigate function
     const location = useLocation(); // Get the current location
@@ -17,6 +18,19 @@ const Navbar = ({ onLogout }) => {
     const handleMenuClick = (page) => {
         setMenu(page); // Update the active menu state
         navigate(`/${page}`); // Navigate to the corresponding page
+    };
+
+    const handleAuthAction = () => {
+        if (user) {
+            onLogout(); // Logs out the user
+            // Show toast when user logs out
+            toast.success("You have logged out successfully!", {
+                position: "top-center",
+                autoClose: 5000, // Adjust the autoClose time as needed
+            });
+        } else {
+            navigate("/login"); // Redirects to the login page if not logged in
+        }
     };
 
     return (
@@ -53,7 +67,9 @@ const Navbar = ({ onLogout }) => {
                 <div className="navbar-basket-icon"></div>
                 <img src="./icons/shopping-cart.png" className='icon' alt="cart icon" />
                 <div className='dot'></div>
-                <button className="Logout" onClick={onLogout}>Log-Out</button>
+                <button className="Logout" onClick={handleAuthAction}>
+                    {user ? "Logout" : "Login"}
+                </button>
             </div>
         </div>
     );

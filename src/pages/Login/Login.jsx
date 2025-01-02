@@ -14,12 +14,18 @@ function NewLogin() {
   const [forgotPasswordMode, setForgotPasswordMode] = useState(false); // State to toggle forgot password mode
   const navigate = useNavigate(); // Create navigate function
 
+
+
+  
   const handleSubmit = async (e) => {
+
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+        // Perform login
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user; // Get the user object from the response
       console.log("User logged in Successfully");
-      toast.success("User logged in Successfully", {
+      toast.success(`Welcome, ${user.displayName || "User"}! You have logged in successfully.`, {
         position: "top-center",
         autoClose:"5000",
       });
