@@ -13,8 +13,8 @@ import food_4 from "/menu_img/samosapav.jpg"
 import food_5 from "/menu_img/idli.jpg"
 import food_6 from "/menu_img/meduvada.jpg"
 import food_7 from "/menu_img/masaladosa.jpg"
-
-
+import food_8 from "/menu_img/chickenhakkanoodles.jpg"
+import food_9 from "/menu_img/chickenschezwannoodles.jpg"
 
 
 
@@ -43,10 +43,7 @@ export const menu_list=[
         menu_name:"Beverages",
         menu_image:menu_5
     },
-    {
-        menu_name:"Beverages",
-        menu_image:menu_5
-    },
+    
 
 ]
 
@@ -84,14 +81,7 @@ export const food_list=[
         description:"...",
         category:"Snacks",
     },
-    {
-        _id:"4",
-        name:"Samosa Pav",
-        image:food_4,
-        price:20,
-        description:"...",
-        category:"Snacks",
-    },
+    
     {
         _id:"5",
         name:"Idli Sambar",
@@ -116,5 +106,22 @@ export const food_list=[
         description:"...",
         category:"South-Indian",
     },
+    {
+        _id:"8",
+        name:"Chicken Hakka Noodles",
+        image:food_8,
+        price:90,
+        description:"...",
+        category:"Noodles",
+    },
+    {
+        _id:"9",
+        name:"Chicken Schezwan Noodles",
+        image:food_9,
+        price:100,
+        description:"...",
+        category:"Noodles",
+    },
+   
    
 ]

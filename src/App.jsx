@@ -7,9 +7,10 @@ import Navbar from "./Components/navbar/Navbar"; // Import the Navbar
 import { auth } from "./Components/firebase"; // Import Firebase auth
 import { useEffect, useState } from "react";
 import { firebaseSignOut } from "./Components/firebase";
-
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Cart from "./pages/Cart/Cart";
+import Footer from "./Components/Footer/Footer";
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -48,7 +49,7 @@ function App() {
     <>
       {/* Show Navbar on all pages except /login and /signup */}
       {!isAuthPage && <Navbar user={user} onLogout={handleLogout} />}
-
+      
       <Routes>
         {/* Redirect root to /login */}
         <Route path="/" element={<Navigate to="/home" />} />
@@ -60,21 +61,12 @@ function App() {
          {/* Routes */}
          <Route path="/home" element={<Home />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/cart" element={<Cart />} />
 
-
-        {/* Private Routes */}
-        {/* <Route
-          path="/home"
-          element={user ? <Home /> : <Navigate to="/login" />} // Redirect to /login if no user is logged in
-        />
-        <Route
-          path="/menu"
-          element={user ? <Menu /> : <Navigate to="/login" />} // Same logic for menu
-        /> 
-        <Route path="/preorder" element={user ? <Preorder /> : <Navigate to="/login" />} />
-        <Route path="/listitem2" element={user ? <ListItem2 /> : <Navigate to="/login" />} /> */}
-          
       </Routes>
+      
+      
+      
     </>
   );
 }
