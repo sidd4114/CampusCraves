@@ -56,10 +56,10 @@ const Navbar = ({ onLogout, user }) => {
                     Preorder
                 </li>
                 <li
-                    onClick={() => handleMenuClick("listitem2")}
-                    className={menu === "listitem2" ? "active" : ""}
+                    onClick={() => handleMenuClick("eWallet")}
+                    className={menu === "eWallet" ? "active" : ""}
                 >
-                    ListItem2
+                    eWallet
                 </li>
             </ul>
             <div className="navbar-right">

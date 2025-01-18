@@ -1,37 +1,30 @@
-import React from "react";
-import "./CartModal.css"; // Optional, for styling specific to the modal
+import React from 'react';
+import './CartModal.css';
+import { useNavigate } from 'react-router-dom';
 
 const CartModal = () => {
- 
+  const navigate=useNavigate();
 
-  return (
-    <>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          Launch static backdrop modal
-        </button>
+  const handlelogin=()=>{
+    navigate('/login');
 
-          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  };
+
+  const handlelogout=()=>{
+    navigate('/menu');
+  };
+    return (
+        <div className="modal-overlay">
+            <div className="modal-content">
+                <h2>Please log in to proceed</h2>
+                <p>You need to be logged in to complete your order.</p>
+                <div className="modals-buttons">
+                <button onClick={handlelogin} className="modal-button login-button">Log In</button>
+                <button onClick={handlelogout} className="modal-button no-thanks-button">No, Thanks!</button>
                 </div>
-                <div class="modal-body">
-                  ...
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Understood</button>
-                </div>
-              </div>
             </div>
-          </div>
-
-        </>
-  );
-};
+        </div>
+    );
+}
 
 export default CartModal;
-
-

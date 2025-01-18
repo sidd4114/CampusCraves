@@ -51,7 +51,7 @@ export const food_list=[
         image:food_1,
         price:20,
         description:"Very Nice Vada Pav",
-        category:"Snacks",
+        category:"Indian Snacks",
     },
     {
         _id:"2",
