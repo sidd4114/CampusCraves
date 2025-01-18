@@ -1,5 +1,6 @@
 import React from 'react'
 import './Footer.css'
+import { Link } from 'react-router-dom';
 const Footer = () => {
     
     return (
@@ -19,17 +20,16 @@ const Footer = () => {
                           Campus Craves
                         </h6>
                         <p>
-                          Here you can use rows and columns to organize your footer
-                          content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit.
+                        Your one-stop solution for quick and hassle-free online food ordering at campus canteens. Satisfy your cravings effortlessly!
                         </p>
                       </div>
                       {/* Grid column */}
         
                       <hr className="w-100 clearfix d-md-none" />
-        
+
+                      {/* 
                       {/* Grid column */}
-                      <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                      {/* <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
                         <h6 className="text-uppercase mb-4 font-weight-bold">Products</h6>
                         <p>
                           <a className="text-white hovering">MDBootstrap</a>
@@ -43,8 +43,9 @@ const Footer = () => {
                         <p>
                           <a className="text-white hovering">Bootstrap Angular</a>
                         </p>
-                      </div>
+                      </div> */}
                       {/* Grid column */}
+                      
         
                       <hr className="w-100 clearfix d-md-none" />
         
@@ -54,10 +55,10 @@ const Footer = () => {
                           Useful links
                         </h6>
                         <p>
-                          <a className="text-white hovering">Cart</a>
+                        <Link to="/cart" className="text-white hovering">Cart</Link>
                         </p>
                         <p>
-                          <a className="text-white hovering">Menu</a>-
+                          <Link to="/menu" className="text-white hovering">Menu</Link>
                         </p>
                         <p>
                           <a className="text-white hovering">Wallet</a>
@@ -74,9 +75,9 @@ const Footer = () => {
                       <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
                         <h6 className="text-uppercase mb-4 font-weight-bold">Contact</h6>
                         <p><i className="fas fa-home mr-3"></i> Navi-Mumbai</p>
-                        <p><i className="fas fa-envelope mr-3"></i>CampusCraves@gmail.com</p>
-                        <p><i className="fas fa-phone mr-3"></i>+91-9819029467</p>
-                       {/*<p><i className="fas fa-print mr-3"></i> + 01 234 567 89</p>*/}
+                        <p><i className="fas fa-envelope mr-3"></i> CampusCraves@gmail.com</p>
+                        <p><i className="fas fa-phone mr-3"></i> +91-8754874587</p>
+                       
                       </div>
                       {/* Grid column */}
                     </div>
