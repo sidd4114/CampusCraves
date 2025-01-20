@@ -5,7 +5,7 @@ import Footer from '../../Components/Footer/Footer';
 import CartModal from '../../Components/CartModal/CartModal';
 
 const Cart = () => {
-  const { cartItems, food_list, removeFromCart, getTotalCartAmount, user } = useContext(StoreContext);
+  const { cartItems, foodList, removeFromCart, getTotalCartAmount, user } = useContext(StoreContext);
 
   return (
     <>
@@ -24,7 +24,7 @@ const Cart = () => {
           </div>
           <br />
           <hr />
-          {food_list.map((item, index) => {
+          {foodList.map((item, index) => {
             if (cartItems[item._id] > 0) {
               return (
                 <>

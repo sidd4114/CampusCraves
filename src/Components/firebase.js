@@ -2,6 +2,8 @@ import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { getFirestore } from "firebase/firestore"; // Import Firestore
 import { signOut as firebaseSignOut } from "firebase/auth"; // for signing out . it is a function
+
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDiwn4IaPeqnMA7RbsrVeAcG2XgkRisBYU",

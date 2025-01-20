@@ -178,7 +178,7 @@ const Aboutus = () => {
             animate={{ opacity: inView ? 1 : 0, scale: inView ? 1 : 0.8 }} // Zoom-in effect for team member
             transition={{ duration: 1.5, delay: 0.6 }} // Slow down the zoom-in effect
           >
-            <img src="team-member-4.jpg" alt="Aditya Patil" />
+            <img src="/people/aditya.jpg" alt="Aditya Patil" />
             <h4>Aditya Patil</h4>
             <p>Co-Founder & CMO</p>
           </motion.div>

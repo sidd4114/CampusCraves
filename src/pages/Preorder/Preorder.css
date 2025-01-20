@@ -1,0 +1,103 @@
+.preorder-header{
+    margin-top: 7%;
+    margin-bottom: 3%;
+    text-align: center;
+    opacity: 0;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* background: linear-gradient(to right, #9b1c31 30%, #b93d3d 70%, #7e0a2f 100%); Premium Red Gradient */
+  background-image: url('C:\Users\siddh\campus\campuscra\public\heroimg2.png');
+  background-size: cover;
+    color: white;
+  padding: 50px 0;
+  border-radius: 8px;
+    
+}
+.preorder-header h1{
+  font-size: 60px;
+}
+
+
+
+   .scroll-button-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+   
+  }
+  
+  .scroll-button {
+    background: rgba(106, 95, 95, 0.6);
+    border-radius: 30px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+  }
+  
+  .scroll-button:hover {
+    background: rgba(255, 255, 255, 0.9);
+  }
+  
+  .arrow {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .scroll-button-container:active .arrow {
+    transform: scale(0.9);
+  }
+  .steps{
+    padding-top: 100px;
+    text-align: center;
+    height: 1400px;
+    background-image: url("/bgimg.jpg");
+    margin-top: 200px;
+  }
+  
+  .steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+  }
+  
+  /* Individual step styling */
+  .step {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    
+  }
+  
+  /* Heading style */
+  .step h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  /* Paragraph style */
+  .step p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+  }
+  
+  

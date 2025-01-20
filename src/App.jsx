@@ -9,7 +9,8 @@ import { useEffect, useState } from "react";
 import { firebaseSignOut } from "./Components/firebase";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cart from "./pages/Cart/Cart";
-import Footer from "./Components/Footer/Footer";
+
+import Preorder from "./pages/Preorder/Preorder";
 
 
 function App() {
@@ -59,8 +60,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
 
          {/* Routes */}
-         <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/preorder" element={<Preorder/>} />
         <Route path="/cart" element={<Cart/> } />
 
       </Routes>
