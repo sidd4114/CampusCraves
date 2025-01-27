@@ -56,8 +56,8 @@ const Navbar = ({ onLogout, user }) => {
                     Preorder
                 </li>
                 <li
-                    onClick={() => handleMenuClick("eWallet")}
-                    className={menu === "eWallet" ? "active" : ""}
+                    onClick={() => handleMenuClick("Ewallet")}
+                    className={menu === "Ewallet" ? "active" : ""}
                 >
                     eWallet
                 </li>
