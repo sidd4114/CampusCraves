@@ -61,6 +61,9 @@ function NewLogin() {
                 
             {!forgotPasswordMode ? (
                 <form onSubmit={handleSubmit}>
+                <div className="logo-img">
+                  <img src="campuslogo.png"></img>
+                </div>
                 <h3>Login to your account</h3>
                 <br />
 

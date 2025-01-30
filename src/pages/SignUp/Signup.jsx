@@ -55,10 +55,14 @@ function Signup() {
 
   return (
 
-    <div className="auth-wrapper">
+    <div className="auth-wrapper mt-10 ">
+      
 
-      <div className="auth-inner">
+      <div className="auth-inner " >
         <form onSubmit={handleRegister}>
+        <div className="logo-img">
+                  <img src="campuslogo.png"></img>
+                </div>
           <h3>Sign Up</h3>
 
           <div className="mb-3">

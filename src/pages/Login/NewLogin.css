@@ -98,6 +98,15 @@ html,
       text-align: center;
   }
 
+.logo-img{
+ text-align: center;
+ margin-top: -30px;
+ margin-bottom: 10px;
+}
+  .logo-img img{
+    height: 200px;
+    width: 200px;
+  }
 
 
   
