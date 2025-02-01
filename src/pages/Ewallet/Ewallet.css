@@ -119,8 +119,7 @@
     background-color: #ffffff;
     text-align: left;
     margin-top: 50px;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+   
 }
 
 /* Section title */
@@ -170,4 +169,143 @@
 .step-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Why Use Ewallet Section */
+.why-ewallet-container {
+    padding: 60px 20px;
+    text-align: left;
+    
+   
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.benefit-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.benefit-image {
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    aspect-ratio: 1;
+    background-size: cover;
+    border-radius: 12px;
+}
+
+.benefit-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111418;
+}
+
+.benefit-description {
+    font-size: 14px;
+    color: #637588;
+}
+
+
+.faq-title {
+  font-size: 26px;  /* Match the section title font size */
+  font-weight: bold;
+ 
+  margin-left: 30px;  /* Match the left margin */
+  color: #111418;  /* Match the text color */
+  text-align: left;  /* Align to the left */
+}
+
+.faq-container {
+  padding: 60px 20px;  /* Match the padding from your previous sections */
+  background-color: #ffffff;
+  text-align: left;
+  
+}
+
+.faq-item {
+  background-color: #fff;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #dce0e5;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.faq-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.faq-summary {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  align-items: center;
+  padding: 16px;
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #444;
+  transition: background-color 0.3s ease;
+}
+
+.faq-summary:hover {
+  background-color: #e5e5e5;
+}
+
+.faq-question {
+  margin: 0;
+  padding-right: 12px;
+}
+
+.faq-icon {
+  transition: transform 0.3s ease;
+  width: 20px;
+  height: 20px;
+}
+
+.faq-item[open] .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  font-size: 14px;
+  color: #555;
+  padding: 0 16px 16px 16px;
+  margin-top: 10px;
+  line-height: 1.5;
+  background-color: #f9f9f9;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+details {
+  outline: none;
+}
+
+details:focus {
+  border: 2px solid #007bff;
+}
+
+details[open] summary {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.faq-icon svg {
+  transform: rotate(0);
+  transition: transform 0.3s ease;
+}
+
+.faq-summary:focus .faq-icon svg {
+  transform: rotate(180deg);
 }
