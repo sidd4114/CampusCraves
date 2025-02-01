@@ -1,0 +1,173 @@
+/* Main container for the Ewallet section */
+.ewallet-container {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row; /* Left image, right text */
+    text-align: center;
+    /* Removed the background and box-shadow */
+    font-family: 'Tenor Sans', sans-serif;
+    padding: 30px;
+}
+  
+/* Left side image container */
+.ewallet-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    max-width: 500px; /* Prevents overflow */
+    height: auto;
+}
+  
+/* Image styling for proper fitting */
+.ewallet-img {
+    width: 100%;
+    max-height: 400px; /* Ensures it scales well */
+    object-fit: contain; /* Prevents distortion */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+  
+/* Right side text container */
+.ewallet-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding-left: 30px;
+}
+
+/* "Introducing" text */
+.ewallet-intro {
+    font-size: 3.5rem;
+    margin: 10px 0;
+    color: #333;
+    font-weight: normal;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* "you" and "to" text */
+.ewallet-you-to {
+    display: flex;
+    justify-content: center;
+}
+
+.ewallet-you, .ewallet-to {
+    font-size: 3.5rem;
+    margin: 0 5px;
+    color: #333;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* "Ewallet" title */
+.ewallet-title {
+    font-size: 4rem;
+    margin: 20px 0;
+    color: #333;
+    font-weight: bold;
+    text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Description text */
+.ewallet-description {
+    color: #111418;
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: 1.5;
+    margin-top: 10px;
+    text-align: left;
+}
+
+/* Button styling */
+.ewallet-button {
+    display: flex;
+    min-width: 84px;
+    max-width: 480px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    height: 2.5rem;
+    padding: 0 1rem;
+    background-color: #1980e6;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 2.5rem;
+    text-transform: uppercase;
+    margin-top: 20px;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.ewallet-button:hover {
+    background-color: #166ac4;
+}
+
+/* ------------------------------ */
+/* How It Works Section */
+/* ------------------------------ */
+
+.how-it-works-container {
+    padding: 60px 20px;
+    background-color: #ffffff;
+    text-align: left;
+    margin-top: 50px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Section title */
+.section-title {
+    color: #111418;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-left: 30px;
+}
+
+/* Grid layout for steps */
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Step card */
+.step-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #dce0e5;
+    border-radius: 12px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Step icon */
+.step-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+/* Step title */
+.step-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #111418;
+    text-align: center;
+}
+
+/* Hover effect */
+.step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}

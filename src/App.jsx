@@ -4,7 +4,7 @@ import Signup from "./pages/SignUp/Signup";
 import Home from "./pages/Homepage/Home";
 import Menu from "./pages/Menu/Menu"; // Import Menu component
 import Navbar from "./Components/navbar/Navbar"; // Import the Navbar
-import Ewallet from "./pages/eWallet/eWallet";
+import Ewallet from "./pages/Ewallet/Ewallet";
 import { auth } from "./Components/firebase"; // Import Firebase auth
 import { useEffect, useState } from "react";
 import { firebaseSignOut } from "./Components/firebase";
