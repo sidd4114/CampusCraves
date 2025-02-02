@@ -3,10 +3,11 @@ import './Cart.css';
 import { StoreContext } from '../../context/StoreContext';
 import Footer from '../../Components/Footer/Footer';
 import CartModal from '../../Components/CartModal/CartModal';
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { cartItems, foodList, removeFromCart, getTotalCartAmount, user } = useContext(StoreContext);
-
+  const navigate = useNavigate();
   return (
     <>
       <div className="cart">
@@ -60,7 +61,7 @@ const Cart = () => {
               <p>Total</p>
               <p>₹{getTotalCartAmount() + 2}</p>
             </div>
-            <button>Proceed To CheckOut </button>
+            <button onClick={() => navigate("/checkout")}>Proceed To CheckOut </button>
           </div>
         </div>
       </div>

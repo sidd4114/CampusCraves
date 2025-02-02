@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Cart from "./pages/Cart/Cart";
 
 import Preorder from "./pages/Preorder/Preorder";
-
+import Checkout from "./pages/CheckOut/CheckOut";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -23,6 +23,7 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
         console.log("User logged in:", currentUser); // Log user details
+        
     } 
       setUser(currentUser); // Set the user state to the current logged-in user (or null if not logged in)
       setLoading(false); // Once the state is set, stop showing loading
@@ -66,6 +67,7 @@ function App() {
         <Route path="/preorder" element={<Preorder/>} />
         <Route path="/cart" element={<Cart/> } />
         <Route path="/Ewallet" element={<Ewallet/> } />
+        <Route path="/checkout" element={<Checkout/> } />
 
       </Routes>
       

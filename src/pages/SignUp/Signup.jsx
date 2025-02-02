@@ -32,13 +32,15 @@ function Signup() {
       await createUserWithEmailAndPassword(auth, email, password);
       const user = auth.currentUser;
       console.log(user);
+
+   
       if (user) {
         await setDoc(doc(db, "Users", user.uid), {
           email: user.email,
           firstName: fname,
           lastName: lname,
           phone: phone, // Save phone number in Firestore
-          photo: "", // You can later add photo URL if you want to upload a profile picture
+          wallet:0,
         });
       }
       console.log("User Registered Successfully!!");

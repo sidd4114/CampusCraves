@@ -24,6 +24,7 @@
 .header-contents h2{
     font-weight: 500;
     color:white;
+    text-align: left;
     font-size: max(4.3vw,22px);
     transition: transform ease-in 0.3s;
 }
