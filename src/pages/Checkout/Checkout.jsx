@@ -1,63 +1,115 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for page redirection
-import "./Checkout.css"; // Your custom styling
+// Checkout.js
+import { useState, useContext } from "react";
+import { StoreContext } from "../../context/StoreContext"; // Import the StoreContext
+import { placeOrder } from "../../functions/placeorder";
+import './Checkout.css';
 
 const Checkout = () => {
-  const [orderType, setOrderType] = useState("instant"); // Default to Instant Order
-  const navigate = useNavigate(); // Initialize navigate function
+  const { user, foodList, cartItems, getTotalCartAmount } = useContext(StoreContext); // Access user from context
+  const [orderType, setOrderType] = useState("instant");
+  const [paymentMethod, setPaymentMethod] = useState("E-Wallet");
+  const [pickupDate, setPickupDate] = useState("");
 
-  // Function to handle order submission
-  const handleOrderSubmit = () => {
-    if (orderType === "instant") {
-      // Handle instant order logic here
-      alert("Instant order placed successfully!");
-      navigate("/order-confirmation"); // Redirect to confirmation page
-    } else {
-      // Handle pre-order logic here
-      alert("Pre-order placed successfully!");
-      navigate("/order-confirmation"); // Redirect to confirmation page
+  const handleOrderTypeChange = (type) => {
+    setOrderType(type);
+  };
+
+  const handlePaymentMethodChange = (method) => {
+    setPaymentMethod(method);
+  };
+
+  const handleSubmit = async () => {
+    if (!user) {
+      alert("You must be logged in to place an order.");
+      return;
     }
+
+    if (orderType === "preorder" && !pickupDate) {
+      alert("Please select a pickup date for preorder!");
+      return;
+    }
+
+    await placeOrder(user.uid, orderType, paymentMethod, pickupDate);
   };
 
   return (
     <div className="checkout-container">
       <h2>Checkout</h2>
 
-      {/* Order Type Section */}
-      <div className="order-type">
-        <h3>Select Order Type</h3>
-        <label>
-          <input
-            type="radio"
-            name="orderType"
-            value="instant"
-            checked={orderType === "instant"}
-            onChange={() => setOrderType("instant")}
-          />
-          Instant Order
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="orderType"
-            value="preorder"
-            checked={orderType === "preorder"}
-            onChange={() => setOrderType("preorder")}
-          />
-          Pre-order
-        </label>
+      {/* Display food items from the cart */}
+      <div className="cart-summary">
+        <h3>Your Cart</h3>
+        {Object.keys(cartItems).length === 0 ? (
+          <p>Your cart is empty.</p>
+        ) : (
+          <ul>
+            {Object.keys(cartItems).map((itemId) => {
+              const item = foodList.find((product) => product._id === itemId);
+              return (
+                <li key={itemId}>
+                  {item?.name} x {cartItems[itemId]} - ${item?.price * cartItems[itemId]}
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
 
-      {/* Order Summary Section */}
-      <div className="order-summary">
-        <h3>Order Summary</h3>
-        <p>Order Type: {orderType === "instant" ? "Instant Order" : "Pre-order"}</p>
+      <div className="option-group">
+        <label>Order Type:</label>
+        <div className="button-group">
+          <button
+            className={orderType === "instant" ? "selected" : ""}
+            onClick={() => handleOrderTypeChange("instant")}
+          >
+            Instant Order
+          </button>
+          <button
+            className={orderType === "preorder" ? "selected" : ""}
+            onClick={() => handleOrderTypeChange("preorder")}
+          >
+            Preorder
+          </button>
+        </div>
       </div>
 
-      {/* Submit Button */}
-      <button className="btn-submit" onClick={handleOrderSubmit}>
-        Submit Order
+      {/* Pickup Date for Preorder */}
+      {orderType === "preorder" && (
+        <div className="option-group">
+          <label>Pickup Date:</label>
+          <input
+            type="date"
+            value={pickupDate}
+            onChange={(e) => setPickupDate(e.target.value)}
+          />
+        </div>
+      )}
+
+      <div className="option-group">
+        <label>Payment Method:</label>
+        <div className="button-group">
+          <button
+            className={paymentMethod === "E-Wallet" ? "selected" : ""}
+            onClick={() => handlePaymentMethodChange("E-Wallet")}
+          >
+            E-Wallet
+          </button>
+          <button
+            className={paymentMethod === "Razorpay" ? "selected" : ""}
+            onClick={() => handlePaymentMethodChange("Razorpay")}
+          >
+            Razorpay
+          </button>
+        </div>
+      </div>
+
+      <button className="place-order-btn" onClick={handleSubmit}>
+        Place Order
       </button>
+
+      <div className="total-amount">
+        <h3>Total: ${getTotalCartAmount()}</h3>
+      </div>
     </div>
   );
 };
