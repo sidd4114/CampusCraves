@@ -2,18 +2,19 @@ import { db } from "../Components/firebase"; // Import Firestore
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 // Function to place the order
-export async function placeOrder(userId, orderType, paymentMethod, pickupDate = null) {
+export async function placeOrder(userId, orderType, paymentMethod, cartItems, foodList, pickupDate = null, pickupTime = null) {
   try {
-    // Prepare order data (you can also dynamically get items and prices from user selection)
+    // Prepare order data (dynamically get items and prices from cartItems and foodList)
     const orderData = {
       userId,                      // User who placed the order
-      items: getSelectedItems(),    // Get the items selected by the user (you can replace this)
-      totalPrice: calculateTotalPrice(), // Calculate total price based on items
+      items: getSelectedItems(cartItems, foodList),    // Get the items selected by the user from cart and foodList
+      totalPrice: calculateTotalPrice(cartItems, foodList), // Calculate total price based on selected items
       status: orderType === "instant" ? "Placed" : "Preordered", // Instant or Preordered
       orderDate: serverTimestamp(),  // Store the timestamp of when the order is placed
       paymentMethod,                // E-Wallet or Razorpay
       paymentStatus: "Pending",     // Initial payment status (you can update this later)
       pickupDate: orderType === "preorder" ? pickupDate : null, // Pickup date for preorders
+      pickupTime: orderType === "preorder" ? pickupTime : null, // Pickup time for preorders
     };
 
     // Save order data to Firestore
@@ -31,15 +32,37 @@ export async function placeOrder(userId, orderType, paymentMethod, pickupDate = 
   }
 }
 
-// Helper function to calculate the total price (you can implement this based on selected items)
-function calculateTotalPrice() {
-  return 100;  // Replace with dynamic calculation logic based on user selection
+// Helper function to calculate the total price dynamically
+function calculateTotalPrice(cartItems, foodList) {
+  let totalAmount = 0;
+
+  // Loop through cart items and get the corresponding item from foodList to calculate the total
+  Object.keys(cartItems).forEach((itemId) => {
+    const item = foodList.find((food) => food._id === itemId);
+    if (item) {
+      totalAmount += item.price * cartItems[itemId]; // Calculate the total price
+    }
+  });
+
+  return totalAmount;
 }
 
-// Helper function to get selected items (you can implement this based on the user's cart or selection)
-function getSelectedItems() {
-  return [
-    { name: "Item 1", price: 50 },
-    { name: "Item 2", price: 50 }
-  ];  // Replace with dynamic data (user's selected items)
+// Helper function to get selected items dynamically from cartItems and foodList
+function getSelectedItems(cartItems, foodList) {
+  const selectedItems = [];
+
+  // Loop through cart items and get the corresponding item from foodList
+  Object.keys(cartItems).forEach((itemId) => {
+    const item = foodList.find((food) => food._id === itemId);
+    if (item && cartItems[itemId] > 0) {
+      selectedItems.push({
+        name: item.name,
+        price: item.price,
+        quantity: cartItems[itemId],
+        totalPrice: item.price * cartItems[itemId],
+      });
+    }
+  });
+
+  return selectedItems;
 }

@@ -1,4 +1,3 @@
-// Checkout.js
 import { useState, useContext } from "react";
 import { StoreContext } from "../../context/StoreContext"; // Import the StoreContext
 import { placeOrder } from "../../functions/placeorder";
@@ -9,6 +8,12 @@ const Checkout = () => {
   const [orderType, setOrderType] = useState("instant");
   const [paymentMethod, setPaymentMethod] = useState("E-Wallet");
   const [pickupDate, setPickupDate] = useState("");
+  const [pickupTime, setPickupTime] = useState(""); // State for time selection
+
+  // Get today's date and the date two days ahead
+  const today = new Date();
+  const maxDate = new Date();
+  maxDate.setDate(today.getDate() + 2); // Set max date to two days from today
 
   const handleOrderTypeChange = (type) => {
     setOrderType(type);
@@ -24,12 +29,12 @@ const Checkout = () => {
       return;
     }
 
-    if (orderType === "preorder" && !pickupDate) {
-      alert("Please select a pickup date for preorder!");
+    if (orderType === "preorder" && (!pickupDate || !pickupTime)) {
+      alert("Please select both a pickup date and time for preorder!");
       return;
     }
 
-    await placeOrder(user.uid, orderType, paymentMethod, pickupDate);
+    await placeOrder(user.uid, orderType, paymentMethod, cartItems, foodList, pickupDate, pickupTime);
   };
 
   return (
@@ -47,7 +52,7 @@ const Checkout = () => {
               const item = foodList.find((product) => product._id === itemId);
               return (
                 <li key={itemId}>
-                  {item?.name} x {cartItems[itemId]} - ${item?.price * cartItems[itemId]}
+                  {item?.name} x {cartItems[itemId]} - ₹{item?.price * cartItems[itemId]}
                 </li>
               );
             })}
@@ -73,16 +78,29 @@ const Checkout = () => {
         </div>
       </div>
 
-      {/* Pickup Date for Preorder */}
+      {/* Pickup Date and Time for Preorder */}
       {orderType === "preorder" && (
-        <div className="option-group">
-          <label>Pickup Date:</label>
-          <input
-            type="date"
-            value={pickupDate}
-            onChange={(e) => setPickupDate(e.target.value)}
-          />
-        </div>
+        <>
+          <div className="option-group">
+            <label>Pickup Date:</label>
+            <input
+              type="date"
+              value={pickupDate}
+              onChange={(e) => setPickupDate(e.target.value)}
+              min={today.toISOString().split("T")[0]} // Set the minimum date to today
+              max={maxDate.toISOString().split("T")[0]} // Set the maximum date to 2 days from today
+            />
+          </div>
+
+          <div className="option-group">
+            <label>Pickup Time:</label>
+            <input
+              type="time"
+              value={pickupTime}
+              onChange={(e) => setPickupTime(e.target.value)}
+            />
+          </div>
+        </>
       )}
 
       <div className="option-group">
@@ -108,7 +126,7 @@ const Checkout = () => {
       </button>
 
       <div className="total-amount">
-        <h3>Total: ${getTotalCartAmount()}</h3>
+        <h3>Total: ₹{getTotalCartAmount()}</h3>
       </div>
     </div>
   );
