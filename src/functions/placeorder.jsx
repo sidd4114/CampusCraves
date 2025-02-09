@@ -1,59 +1,77 @@
 import { db } from "../Components/firebase"; // Import Firestore
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
+
+// Function to fetch foodList from Firestore
+async function fetchFoodList() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "foodItems")); // "foods" is your Firestore collection
+    const foodArray = querySnapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() })); // Convert to array
+   
+    return foodArray;
+  } catch (error) {
+    console.error("Error fetching foodList:", error);
+    return []; // Return an empty array in case of an error
+  }
+}
 
 // Function to place the order
-export async function placeOrder(userId, orderType, paymentMethod, cartItems, foodList, pickupDate = null, pickupTime = null) {
+export async function placeOrder(userId, orderType, paymentMethod, cartItems, pickupDate = null, pickupTime = null) {
   try {
-    // Prepare order data (dynamically get items and prices from cartItems and foodList)
+    const foodList = await fetchFoodList(); // Ensure foodList is fetched before using it
+
+    if (!Array.isArray(foodList) || foodList.length === 0) {
+      throw new Error("foodList is empty or not an array.");
+    }
+
+    // Prepare order data
     const orderData = {
-      userId,                      // User who placed the order
-      items: getSelectedItems(cartItems, foodList),    // Get the items selected by the user from cart and foodList
-      totalPrice: calculateTotalPrice(cartItems, foodList), // Calculate total price based on selected items
-      status: orderType === "instant" ? "Placed" : "Preordered", // Instant or Preordered
-      orderDate: serverTimestamp(),  // Store the timestamp of when the order is placed
-      paymentMethod,                // E-Wallet or Razorpay
-      paymentStatus: "Pending",     // Initial payment status (you can update this later)
-      pickupDate: orderType === "preorder" ? pickupDate : null, // Pickup date for preorders
-      pickupTime: orderType === "preorder" ? pickupTime : null, // Pickup time for preorders
+      userId,  
+      items: getSelectedItems(cartItems, foodList), 
+      totalPrice: calculateTotalPrice(cartItems, foodList), 
+      status: orderType === "instant" ? "Placed" : "Preordered",
+      orderDate: serverTimestamp(),
+      paymentMethod,
+      paymentStatus: "Pending",
+      pickupDate: orderType === "preorder" ? pickupDate : null,
+      pickupTime: orderType === "preorder" ? pickupTime : null,
     };
 
-    // Save order data to Firestore
-    console.log("Order Data: ", orderData);  // Log order data before sending to Firestore
+    console.log("Order Data: ", orderData); // Debugging log
 
-    const docRef = await addDoc(collection(db, "orders"), orderData); // Save the order document
-    console.log("Order placed with ID: ", docRef.id); // Log the document ID
-    alert("Order placed successfully!"); // Notify the user
-
-    // Optionally, handle redirection or additional logic after order placement
+    const docRef = await addDoc(collection(db, "orders"), orderData);
+    console.log("Order placed with ID: ", docRef.id);
+    alert("Order placed successfully!");
 
   } catch (error) {
-    console.error("Error placing order: ", error); // Log the error
+    console.error("Error placing order: ", error);
     alert("Failed to place order. Please try again.");
   }
 }
 
-// Helper function to calculate the total price dynamically
+// Helper function to calculate the total price
 function calculateTotalPrice(cartItems, foodList) {
   let totalAmount = 0;
 
-  // Loop through cart items and get the corresponding item from foodList to calculate the total
+  // Ensure foodList is an array
+  const foodArray = Array.isArray(foodList) ? foodList : Object.values(foodList);
+
   Object.keys(cartItems).forEach((itemId) => {
-    const item = foodList.find((food) => food._id === itemId);
+    const item = foodArray.find((food) => food._id === itemId);
     if (item) {
-      totalAmount += item.price * cartItems[itemId]; // Calculate the total price
+      totalAmount += item.price * cartItems[itemId];
     }
   });
 
   return totalAmount;
 }
 
-// Helper function to get selected items dynamically from cartItems and foodList
+// Helper function to get selected items
 function getSelectedItems(cartItems, foodList) {
   const selectedItems = [];
+  const foodArray = Array.isArray(foodList) ? foodList : Object.values(foodList); // Ensure it's an array
 
-  // Loop through cart items and get the corresponding item from foodList
   Object.keys(cartItems).forEach((itemId) => {
-    const item = foodList.find((food) => food._id === itemId);
+    const item = foodArray.find((food) => food._id === itemId);
     if (item && cartItems[itemId] > 0) {
       selectedItems.push({
         name: item.name,
