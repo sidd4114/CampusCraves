@@ -12,7 +12,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Cart from "./pages/Cart/Cart";
 
 import Preorder from "./pages/Preorder/Preorder";
-import Checkout from "./pages/CheckOut/CheckOut";
+import Checkout from "./pages/Checkout/Checkout";
+import ThankYou from "./pages/ThankYou/ThankYou";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -68,6 +69,8 @@ function App() {
         <Route path="/cart" element={<Cart/> } />
         <Route path="/Ewallet" element={<Ewallet/> } />
         <Route path="/checkout" element={<Checkout/> } />
+        <Route path="/thank-you" element={<ThankYou />} />
+
 
       </Routes>
       

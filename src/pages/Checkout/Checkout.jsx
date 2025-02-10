@@ -2,14 +2,16 @@ import { useState, useContext, useEffect } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import { placeOrder } from "../../functions/placeorder";
 import './Checkout.css';
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
-  const { user, foodList, cartItems, getTotalCartAmount } = useContext(StoreContext);
+  const { user, foodList, cartItems, getTotalCartAmount,setCartItems } = useContext(StoreContext);
   const [orderType, setOrderType] = useState("instant");
   const [paymentMethod, setPaymentMethod] = useState("E-Wallet");
   const [pickupDate, setPickupDate] = useState("");
   const [pickupTime, setPickupTime] = useState("");
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const loadRazorpay = () => {
       const script = document.createElement("script");
@@ -91,6 +93,8 @@ const Checkout = () => {
           console.log("🎉 Payment Successful!", response);
           alert("Payment Successful!");
           await placeOrder(user.uid, orderType, paymentMethod, cartItems, foodList, pickupDate, pickupTime);
+          setCartItems({}); // ✅ Clears the cart
+          navigate("/thank-you"); // ✅ Redirects to "Thank You" page
         },
         theme: { color: "#3399cc" },
       };
@@ -101,6 +105,7 @@ const Checkout = () => {
       console.log("🛒 Placing order without Razorpay...");
       await placeOrder(user.uid, orderType, paymentMethod, cartItems, foodList, pickupDate, pickupTime);
     }
+    
   };
 
   return (
