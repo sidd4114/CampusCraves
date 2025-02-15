@@ -16,7 +16,7 @@ const Card = ({ image, title, text, link }) => {
         <h5 className="card-title">{title}</h5>
         <p className="card-text">{text}</p>
         {/* Use Link for navigation */}
-        <Link to={"/menu"} className="btn btn-primary card-design-button" style={{ position: "absolute", bottom: "1rem", left: "10%" }}>
+        <Link to={"/menu"} className="btn btn-outline-discovery" style={{ position: "absolute", bottom: "1rem", left: "10%" }}>
           Go to menu
         </Link>
       </div>

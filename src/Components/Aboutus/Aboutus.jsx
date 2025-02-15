@@ -101,7 +101,7 @@ const Aboutus = () => {
             variants={cardVariants}
             custom={0} // Custom value to stagger
           >
-            <img src="icon-1.png" alt="Avoid Queue" />
+            
             <h4>Avoid Queues</h4>
             <p>No more standing in long lines. Order ahead and pick up your food on time, every time.</p>
           </motion.div>
@@ -112,7 +112,7 @@ const Aboutus = () => {
             variants={cardVariants}
             custom={1} // Custom value to stagger
           >
-            <img src="icon-2.png" alt="Online Payment" />
+            
             <h4>Online Payment Supported</h4>
             <p>Pay securely online with multiple payment options, making transactions quick and easy.</p>
           </motion.div>
@@ -123,7 +123,7 @@ const Aboutus = () => {
             variants={cardVariants}
             custom={2} // Custom value to stagger
           >
-            <img src="icon-3.png" alt="Preordering" />
+            
             <h4>Preordering</h4>
             <p>Plan your meals ahead of time. Order in advance and get your food ready for you when you arrive.</p>
           </motion.div>
@@ -158,7 +158,7 @@ const Aboutus = () => {
             animate={{ opacity: inView ? 1 : 0, scale: inView ? 1 : 0.8 }} // Zoom-in effect for team member
             transition={{ duration: 1.5, delay: 0.4 }} // Slow down the zoom-in effect
           >
-            <img src="team-member-2.jpg" alt="Sharon Saju" />
+            <img src="/people/sharon.jpg" alt="Sharon Saju" />
             <h4>Sharon Saju</h4>
             <p>Co-Founder & CTO</p>
           </motion.div>
@@ -168,7 +168,7 @@ const Aboutus = () => {
             animate={{ opacity: inView ? 1 : 0, scale: inView ? 1 : 0.8 }} // Zoom-in effect for team member
             transition={{ duration: 1.5, delay: 0.5 }} // Slow down the zoom-in effect
           >
-            <img src="team-member-3.jpg" alt="Sharon Mishra" />
+            <img src="/people/sharonm.jpg" alt="Sharon Mishra" />
             <h4>Sharon Mishra</h4>
             <p>Co-Founder & COO</p>
           </motion.div>
