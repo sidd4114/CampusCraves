@@ -6,7 +6,7 @@ const navbar = () => {
 
   return (
     <div className='navbar'>
-      <h2>CampusCrave</h2>
+      <h2>CampusCraves</h2>
       <h3>Admin Panel</h3>
     </div>
   )
