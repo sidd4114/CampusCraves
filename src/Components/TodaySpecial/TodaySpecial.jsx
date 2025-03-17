@@ -45,28 +45,28 @@ const TodaysSpecials = () => {
           className="card"
           image="../specials_img/gulabjamun.jpg"
           title="Gulab Jamun"
-          text="This is the first card's description."
+          text="Soft, golden dumplings soaked in rich, aromatic syrup — a timeless Indian dessert that's sweet, warm, and irresistible."
           link="https://example.com/card1"
         />
         <Card
           className="card"
           image="../specials_img/dhokla.jpg"
           title="Dhokla"
-          text="This is the second card's description."
+          text="A soft, fluffy steamed snack with a tangy flavor, topped with mustard seeds and curry leaves."
           link="https://example.com/card2"
         />
         <Card
           className="card"
           image="../bg3.jpg"
-          title="Card 3"
-          text="This is the third card's description."
+          title="Noodles"
+          text="A deliciously tangled mix of flavors, spices, and textures, perfect for satisfying cravings."
           link="https://example.com/card3"
         />
         <Card
           className="card"
           image="../specials_img/pizza_bg.jpeg"
-          title="Card 4"
-          text="This is the 4th card's description."
+          title="Chicken Pizza"
+          text="A cheesy delight loaded with tender chicken, rich sauce, and a crispy crust for the perfect bite."
           link="https://example.com/card4"
         />
       </div>

@@ -3,9 +3,12 @@ import { StoreContext } from "../../context/StoreContext";
 import { placeOrder } from "../../functions/placeorder";
 import './Checkout.css';
 import { useNavigate } from "react-router-dom";
+import { getQueueCounts } from "../../functions/getQueueCounts";
+import { doc,updateDoc } from "firebase/firestore";
+import { db } from "../../Components/firebase";
 
 const Checkout = () => {
-  const { user, foodList, cartItems, getTotalCartAmount,setCartItems } = useContext(StoreContext);
+  const { user, foodList, cartItems, getTotalCartAmount, setCartItems } = useContext(StoreContext);
   const [orderType, setOrderType] = useState("instant");
   const [paymentMethod, setPaymentMethod] = useState("E-Wallet");
   const [pickupDate, setPickupDate] = useState("");
@@ -28,7 +31,7 @@ const Checkout = () => {
   maxDate.setDate(today.getDate() + 2);
 
   const handleSubmit = async () => {
-    console.log("🔥 handleSubmit triggered!"); // Debugging log
+    console.log("🔥 handleSubmit triggered!");
     if (!user) {
       alert("You must be logged in to place an order.");
       return;
@@ -38,74 +41,146 @@ const Checkout = () => {
       alert("Please select both a pickup date and time for preorder!");
       return;
     }
+    const totalAmount = getTotalCartAmount();
+    const queueCounts = await getQueueCounts();
+    const suggestedQueue = Object.keys(queueCounts).reduce((a, b) =>
+        queueCounts[a] < queueCounts[b] ? a : b
+    );
 
     console.log("📦 Sending order request:", {
       userId: user.uid,
       orderType,
       paymentMethod,
       cartItems,
-      foodList,
       pickupDate,
       pickupTime,
     });
 
-    const response = await fetch("http://localhost:5000/api/create-order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        userId: user.uid,
-        orderType,
-        paymentMethod,
-        cartItems,
-        foodList,
-        pickupDate,
-        pickupTime,
-      }),
-    });
+    try {
+      const response = await fetch("http://localhost:5000/api/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: user.uid,
+          orderType,
+          paymentMethod,
+          cartItems,
+          pickupDate,
+          pickupTime,
+          totalAmount,
+          suggestedQueue
+        }),
+      });
 
-    console.log("📡 Response received from API:", response);
+      console.log("📡 Response received from API:", response);
 
-    if (!response.ok) {
-      console.error("❌ Failed to create order:", response.statusText);
-      alert("Failed to create order. Try again.");
-      return;
+      if (!response.ok) {
+        console.error("❌ Failed to create order:", response.statusText);
+        alert("Failed to create order. Try again.");
+        return;
+      }
+
+      const orderData = await response.json();
+      console.log("✅ Order created successfully:", orderData);
+
+      if (!orderData || !orderData.orderId) {
+        alert("Failed to create Razorpay order.");
+        return;
+      }
+
+      const queueRef = doc(db, "queues", `queue${suggestedQueue}`);
+        await updateDoc(queueRef, {
+            count: queueCounts[suggestedQueue] + 1
+        });
+
+       
+
+      if (paymentMethod === "Razorpay") {
+        console.log("💰 Initiating Razorpay payment...");
+
+        const options = {
+          key: "rzp_test_zm3VuyFOVpqFZs",
+          amount: orderData.amount,
+          currency: orderData.currency,
+          name: "Campus Craves",
+          description: "Food Order Payment",
+          order_id: orderData.id,
+          handler: async function (response) {
+            console.log("🎉 Payment Successful!", response);
+            console.log(`✅ Before placeOrder: suggestedQueue = ${suggestedQueue}`);
+
+            alert("Payment Successful!");
+
+            const result = await placeOrder(
+              user.uid,
+              orderType,
+              paymentMethod,
+              cartItems,
+              pickupDate,
+              pickupTime,
+              suggestedQueue,
+            );
+
+            if (result && result.id) {
+              //console.log(`✅ Order placed successfully with ID: ${result.id}`);
+              setCartItems({}); // ✅ Clears the cart only after successful placement
+              navigate("/thank-you",{
+                state: {
+                  orderDetails: {
+                    orderId: result.id,
+                    paymentId: response?.razorpay_payment_id || "N/A",
+                    amount: totalAmount,
+                    paymentMethod,
+                    queueNumber: suggestedQueue // Show queue in confirmation
+                  }
+                }
+              });
+            } else {
+              console.error("❌ Failed to place order after payment.");
+              alert("Order creation failed. Please contact support.");
+            }
+          },
+          theme: { color: "#3399cc" },
+        };
+
+        const rzp1 = new window.Razorpay(options);
+        rzp1.open();
+      } else {
+        console.log("🛒 Placing order without Razorpay...");
+        console.log(`🔥 my suggestedQueue: ${suggestedQueue}`);
+        const result = await placeOrder(
+          user.uid,
+          orderType,
+          paymentMethod,
+          cartItems,
+          pickupDate,
+          pickupTime,
+          suggestedQueue,
+        );
+
+        if (result && result.id) {
+          // console.log(`✅ Order placed successfully with ID: ${result.id}`);
+          setCartItems({}); // ✅ Clears the cart only after successful placement
+          navigate("/thank-you",{
+            state: {
+              orderDetails: {
+                orderId: result.id,
+                paymentId: response?.razorpay_payment_id || "N/A",
+                amount: totalAmount,
+                paymentMethod,
+                queueNumber: suggestedQueue // Show queue in confirmation
+              }
+            }
+          });
+        } else {
+          console.error("❌ Failed to place order.");
+          alert("Order creation failed. Please try again.");
+        }
+      }
+    } catch (error) {
+      console.error("❌ Error in handleSubmit:", error);
+      alert("An unexpected error occurred. Please try again.");
     }
-
-    const orderData = await response.json();
-    console.log("✅ Order created successfully:", orderData);
-
-    if (!orderData || !orderData.orderId) {
-      alert("Failed to create Razorpay order.");
-      return;
-    }
-
-    if (paymentMethod === "Razorpay") {
-      console.log("💰 Initiating Razorpay payment...");
-
-      const options = {
-        key: "rzp_test_zm3VuyFOVpqFZs",
-        amount: orderData.amount,
-        currency: orderData.currency,
-        name: "Campus Craves",
-        description: "Food Order Payment",
-        order_id: orderData.id,
-        handler: async function (response) {
-          console.log("🎉 Payment Successful!", response);
-          alert("Payment Successful!");
-          await placeOrder(user.uid, orderType, paymentMethod, cartItems, foodList, pickupDate, pickupTime);
-          setCartItems({}); // ✅ Clears the cart
-          navigate("/thank-you"); // ✅ Redirects to "Thank You" page
-        },
-        theme: { color: "#3399cc" },
-      };
-
-      const rzp1 = new window.Razorpay(options);
-      rzp1.open();
-    } else {
-      console.log("🛒 Placing order without Razorpay...");
-      await placeOrder(user.uid, orderType, paymentMethod, cartItems, foodList, pickupDate, pickupTime);
-    }
-    
   };
 
   return (
@@ -132,10 +207,16 @@ const Checkout = () => {
       <div className="option-group">
         <label>Order Type:</label>
         <div className="button-group">
-          <button className={orderType === "instant" ? "selected" : ""} onClick={() => setOrderType("instant")}>
+          <button
+            className={orderType === "instant" ? "selected" : ""}
+            onClick={() => setOrderType("instant")}
+          >
             Instant Order
           </button>
-          <button className={orderType === "preorder" ? "selected" : ""} onClick={() => setOrderType("preorder")}>
+          <button
+            className={orderType === "preorder" ? "selected" : ""}
+            onClick={() => setOrderType("preorder")}
+          >
             Preorder
           </button>
         </div>
@@ -145,11 +226,21 @@ const Checkout = () => {
         <>
           <div className="option-group">
             <label>Pickup Date:</label>
-            <input type="date" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} min={today.toISOString().split("T")[0]} max={maxDate.toISOString().split("T")[0]} />
+            <input
+              type="date"
+              value={pickupDate}
+              onChange={(e) => setPickupDate(e.target.value)}
+              min={today.toISOString().split("T")[0]}
+              max={maxDate.toISOString().split("T")[0]}
+            />
           </div>
           <div className="option-group">
             <label>Pickup Time:</label>
-            <input type="time" value={pickupTime} onChange={(e) => setPickupTime(e.target.value)} />
+            <input
+              type="time"
+              value={pickupTime}
+              onChange={(e) => setPickupTime(e.target.value)}
+            />
           </div>
         </>
       )}
@@ -157,16 +248,24 @@ const Checkout = () => {
       <div className="option-group">
         <label>Payment Method:</label>
         <div className="button-group">
-          <button className={paymentMethod === "E-Wallet" ? "selected" : ""} onClick={() => setPaymentMethod("E-Wallet")}>
+          <button
+            className={paymentMethod === "E-Wallet" ? "selected" : ""}
+            onClick={() => setPaymentMethod("E-Wallet")}
+          >
             E-Wallet
           </button>
-          <button className={paymentMethod === "Razorpay" ? "selected" : ""} onClick={() => setPaymentMethod("Razorpay")}>
+          <button
+            className={paymentMethod === "Razorpay" ? "selected" : ""}
+            onClick={() => setPaymentMethod("Razorpay")}
+          >
             Razorpay
           </button>
         </div>
       </div>
 
-      <button className="place-order-btn" onClick={handleSubmit}>Place Order</button>
+      <button className="place-order-btn" onClick={handleSubmit}>
+        Place Order
+      </button>
 
       <div className="total-amount">
         <h3>Total: ₹{getTotalCartAmount()}</h3>

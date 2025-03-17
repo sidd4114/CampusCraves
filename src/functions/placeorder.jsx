@@ -15,8 +15,9 @@ async function fetchFoodList() {
 }
 
 // Function to place the order
-export async function placeOrder(userId, orderType, paymentMethod, cartItems, pickupDate = null, pickupTime = null) {
+export async function placeOrder(userId, orderType, paymentMethod, cartItems, pickupDate = null, pickupTime = null,suggestedQueue) {
   try {
+    console.log(`🔥 Received suggestedQueue: ${suggestedQueue}`);
     const foodList = await fetchFoodList(); // Ensure foodList is fetched before using it
 
     if (!Array.isArray(foodList) || foodList.length === 0) {
@@ -34,6 +35,7 @@ export async function placeOrder(userId, orderType, paymentMethod, cartItems, pi
       paymentStatus: "Pending",
       pickupDate: orderType === "preorder" ? pickupDate : null,
       pickupTime: orderType === "preorder" ? pickupTime : null,
+      queueNo:suggestedQueue,
     };
 
     console.log("Order Data: ", orderData); // Debugging log
@@ -41,6 +43,8 @@ export async function placeOrder(userId, orderType, paymentMethod, cartItems, pi
     const docRef = await addDoc(collection(db, "orders"), orderData);
     console.log("Order placed with ID: ", docRef.id);
     alert("Order placed successfully!");
+
+    return {id:docRef.id};
 
   } catch (error) {
     console.error("Error placing order: ", error);
