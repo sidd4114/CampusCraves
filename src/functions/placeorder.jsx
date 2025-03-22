@@ -32,7 +32,7 @@ export async function placeOrder(userId, orderType, paymentMethod, cartItems, pi
       status: orderType === "instant" ? "Placed" : "Preordered",
       orderDate: serverTimestamp(),
       paymentMethod,
-      paymentStatus: "Pending",
+      paymentStatus: "Placed",
       pickupDate: orderType === "preorder" ? pickupDate : null,
       pickupTime: orderType === "preorder" ? pickupTime : null,
       queueNo:suggestedQueue,

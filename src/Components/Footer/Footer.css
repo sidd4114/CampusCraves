@@ -1,10 +1,54 @@
-/* Base styles for links to remove underline */
-.text-white {
-    text-decoration: none;
-    
-  }
-
-.hovering{
-    cursor: pointer;
+/* Force Footer Text to White */
+footer,
+footer * {
+    color: #ffffff !important;  /* Ensures ALL text inside the footer is white */
 }
-  
+
+/* Force Heading and Links to White */
+footer h6,
+footer p,
+footer a,
+footer .fas,
+footer .btn-outline-light {
+    color: #ffffff !important;
+}
+
+/* Link Hover Effect */
+footer a:hover {
+    opacity: 0.8; 
+    text-decoration: underline; /* Optional for clarity */
+}
+
+/* Button Styling */
+footer .btn-outline-light {
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+}
+
+footer .btn-outline-light:hover {
+    background-color: #ffffff !important;
+    color: #45526e !important;  /* Reverse color for visibility */
+}
+
+/* Horizontal Line (Optional for visibility) */
+footer hr {
+    border-top: 1px solid #ffffff !important;
+    opacity: 0.5;
+}
+
+/* Copyright Section */
+footer .p-3 {
+    color: #ffffff !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    footer .row {
+        text-align: center;
+    }
+
+    footer .col-md-5,
+    footer .col-md-7 {
+        margin-top: 10px;
+    }
+}

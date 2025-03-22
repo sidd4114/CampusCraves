@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../../../src/Components/firebase"; // Ensure Firebase is correctly imported
+import { db } from "../../../src/Components/firebase";
 import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import "./Order.css";
 
 const Orders = () => {
-  const [orders, setOrders] = useState([]);
+  const [pendingOrders, setPendingOrders] = useState([]);
+  const [completedOrders, setCompletedOrders] = useState([]);
 
   // Fetch orders from Firestore
   const fetchOrders = async () => {
@@ -16,19 +17,24 @@ const Orders = () => {
         id: doc.id,
         ...doc.data()
       }));
-      setOrders(ordersList);
+
+      const pending = ordersList.filter(order => order.status !== "Completed");
+      const completed = ordersList.filter(order => order.status === "Completed");
+
+      setPendingOrders(pending);
+      setCompletedOrders(completed);
     } catch (error) {
       toast.error("Error fetching orders: " + error.message);
     }
   };
 
-  // Update order status to "done"
-  const markAsDone = async (orderId) => {
+  // Mark an order as completed
+  const markAsCompleted = async (orderId) => {
     try {
       const orderRef = doc(db, "orders", orderId);
-      await updateDoc(orderRef, { status: "Done" });
-      toast.success("Order marked as done!");
-      fetchOrders(); // Refresh orders list
+      await updateDoc(orderRef, { status: "Completed" });
+      toast.success("Order marked as completed!");
+      fetchOrders(); // Refresh orders
     } catch (error) {
       toast.error("Error updating order: " + error.message);
     }
@@ -41,32 +47,59 @@ const Orders = () => {
   return (
     <div className="orders">
       <h2>Orders List</h2>
-      <div className="orders-table">
-        <div className="orders-header">
-          <b>Order ID</b>
-          <b>Items</b>
-          <b>Total Amount</b>
-          <b>Status</b>
-          <b>Action</b>
-        </div>
-        {orders.length === 0 ? (
-          <p>No orders available.</p>
+
+      {/* Pending Orders Section */}
+      <div className="section">
+        <h3>Pending Orders</h3>
+        {pendingOrders.length === 0 ? (
+          <p className="no-orders">No pending orders.</p>
         ) : (
-          orders.map((order) => (
-            <div key={order.id} className="orders-row">
-              <p>{order.id}</p>
-              <p>{order.items?.map((item) => item.name).join(", ")}</p>
-              <p>₹{order.totalAmount}</p>
-              <p className={order.status === "Done" ? "done" : "pending"}>
-                {order.status}
-              </p>
-              {order.status !== "Done" && (
-                <button onClick={() => markAsDone(order.id)} className="done-btn">
-                  Mark as Done
-                </button>
-              )}
+          <div className="orders-table">
+            <div className="orders-header">
+              <b>Order ID</b>
+              <b>Items</b>
+              <b>Total Price</b>
+              <b>Action</b>
             </div>
-          ))
+            {pendingOrders.map((order) => (
+              <div key={order.id} className="orders-row">
+                <p>{order.id}</p>
+                <p>{order.items?.map((item) => item.name).join(", ") || 'No items'}</p>
+                <p>₹{order.totalPrice || '0'}</p>
+                <button
+                  onClick={() => markAsCompleted(order.id)}
+                  className="done-btn"
+                >
+                  Mark as Completed
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Completed Orders Section */}
+      <div className="section">
+        <h3>Completed Orders</h3>
+        {completedOrders.length === 0 ? (
+          <p className="no-orders">No completed orders yet.</p>
+        ) : (
+          <div className="orders-table">
+            <div className="orders-header">
+              <b>Order ID</b>
+              <b>Items</b>
+              <b>Total Price</b>
+              <b>Status</b>
+            </div>
+            {completedOrders.map((order) => (
+              <div key={order.id} className="orders-row">
+                <p>{order.id}</p>
+                <p>{order.items?.map((item) => item.name).join(", ") || 'No items'}</p>
+                <p>₹{order.totalPrice || '0'}</p>
+                <p className="completed">Completed</p>
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'; // Import useLocation
 import './Navbar.css';
 import { toast } from 'react-toastify'; // Import toast
+import YourOrder from '../../pages/YourOrder/YourOrder';
 
 const Navbar = ({ onLogout, user }) => {
     const [menu, setMenu] = useState("home");
@@ -60,6 +61,13 @@ const Navbar = ({ onLogout, user }) => {
                     className={menu === "Ewallet" ? "active" : ""}
                 >
                     eWallet
+                </li>
+                <li
+                    onClick={() => handleMenuClick("YourOrder")}
+                    className={menu === "YourOrder" ? "active" : ""}
+                    
+                >
+                    YourOrder
                 </li>
             </ul>
             <div className="navbar-right">

@@ -14,7 +14,7 @@ import Cart from "./pages/Cart/Cart";
 import Preorder from "./pages/Preorder/Preorder";
 import Checkout from "./pages/Checkout/Checkout";
 import ThankYou from "./pages/ThankYou/ThankYou";
-
+import YourOrder from "./pages/YourOrder/YourOrder";
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);  // Add loading state to control render until user state is checked
@@ -70,6 +70,7 @@ function App() {
         <Route path="/Ewallet" element={<Ewallet/> } />
         <Route path="/checkout" element={<Checkout/> } />
         <Route path="/thank-you" element={<ThankYou />} />
+        <Route path="/YourOrder" element={<YourOrder userId={user?.uid} />}/>
 
 
       </Routes>
