@@ -32,7 +32,7 @@ const YourOrder = ({ userId }) => {
 
                     const status = orderData.status?.toLowerCase();
 
-                    if (status === 'placed') {
+                    if (status === 'placed'|| status==='preordered') {
                         current.push(orderData);
                     } else if (status === 'completed') {
                         completed.push(orderData);

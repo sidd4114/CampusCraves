@@ -1,31 +1,22 @@
+require("dotenv").config(); 
 const express = require("express");
+const bodyParser = require("body-parser");
 const cors = require("cors");
-require("dotenv").config(); // Load environment variables
+const paymentController = require("./controllers/paymentController");
 
 const app = express();
+
+// Middleware
 app.use(cors());
-app.use(express.json()); // Parse incoming JSON requests
+app.use(bodyParser.json());
 
-// Import routes
-const paymentRoutes = require("./routes/paymentRoutes");
-app.use("/api/payments", paymentRoutes);
+// Routes
+app.post("/api/create-order", paymentController.createOrder);
+app.post("/api/verify-payment", paymentController.verifyPayment);
 
-// 🛠️ Add missing order route
-app.post("/api/create-order", (req, res) => {
-  const { userId, orderType, paymentMethod, cartItems, pickupDate, pickupTime } = req.body;
-  console.log("Received Order Data:", req.body);
-
-  if (!userId || !cartItems || Object.keys(cartItems).length === 0) {
-    return res.status(400).json({ success: false, message: "Invalid order data" });
-  }
-
-  res.json({ success: true, orderId: `order_${Date.now()}` });
-});
-
-// Define port
+// Start the server
 const PORT = process.env.PORT || 5000;
-
-// Start server
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  
+  console.log(`✅ Server running on http://localhost:${PORT}`);
 });
